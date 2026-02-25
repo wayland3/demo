@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package cs;
+
+option go_package = "ttt/grpc/proto_gen/cs";
+
+message CS{
+    string id = 1;
+}
+

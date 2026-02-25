@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package service;
+
+import "cs.proto";
+import "ss.proto";
+
+option go_package = "ttt/grpc/proto_gen/service";
+
+service Hello {
+    rpc Get(cs.CS) returns (ss.SS);
+}

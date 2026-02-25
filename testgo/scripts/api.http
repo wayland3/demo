@@ -1,0 +1,38 @@
+@baseURL = http://localhost:8080
+
+###
+{{baseURL}}/api/year/report/2021
+authorize-token: MTE3MzgwODY1LDE2NDA5MjY0MTMsM2VkZGM5ZWZhMjE3MjhmM2I1OTQwMjVjNWQyNDhhMzY=
+cli-os: web
+app-version: 2.11.10
+x-api-test: 2
+
+###
+{{baseURL}}/api/year/report/2021/share?userId=c0565057e232f2eb8dc227e9ed07b03a
+authorize-token: MTE3MzgwODY1LDE2NDA5MjY0MTMsM2VkZGM5ZWZhMjE3MjhmM2I1OTQwMjVjNWQyNDhhMzY=
+cli-os: web
+app-version: 2.11.10
+x-api-test: 2
+
+###
+POST https://wangl.wang/branch 
+
+{"a":"b"}
+
+### 
+GET {{baseURL}}/api/test
+
+###
+POST {{baseURL}}/api/test
+
+###
+PATCH {{baseURL}}/api/test
+
+###
+PUT {{baseURL}}/api/test
+
+###
+DELETE {{baseURL}}/api/test
+
+### 
+GET {{baseURL}}/

@@ -1,0 +1,13 @@
+/Users/wl/demo/test_go/hello_cargo/target/debug/deps/getrandom-29c0b409ba91099b.rmeta: /Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/lib.rs /Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/error.rs /Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/util.rs /Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/error_impls.rs /Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/util_libc.rs /Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/use_file.rs /Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/macos.rs
+
+/Users/wl/demo/test_go/hello_cargo/target/debug/deps/libgetrandom-29c0b409ba91099b.rlib: /Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/lib.rs /Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/error.rs /Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/util.rs /Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/error_impls.rs /Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/util_libc.rs /Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/use_file.rs /Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/macos.rs
+
+/Users/wl/demo/test_go/hello_cargo/target/debug/deps/getrandom-29c0b409ba91099b.d: /Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/lib.rs /Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/error.rs /Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/util.rs /Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/error_impls.rs /Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/util_libc.rs /Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/use_file.rs /Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/macos.rs
+
+/Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/lib.rs:
+/Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/error.rs:
+/Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/util.rs:
+/Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/error_impls.rs:
+/Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/util_libc.rs:
+/Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/use_file.rs:
+/Users/wl/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.8/src/macos.rs:

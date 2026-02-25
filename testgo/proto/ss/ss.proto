@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package ss;
+
+import "cs.proto";
+
+option go_package = "ttt/grpc/proto_gen/ss";
+
+message SS{
+    string id = 1;
+    cs.CS cs = 2;
+}
+
+
+

@@ -1,0 +1,207 @@
+# 公用配置
+cluster: 61 # cluster id
+settingsPath: /Users/wl/work/pai/maque/mahjong-data
+database:
+  - name: game
+    dsn: "michong:michong@tcp(10.0.0.241:3306)/mahjong_game_test?charset=utf8mb4&parseTime=true"
+    driver: mysql
+    maxOpenConns: 10
+    maxIdleConns: 10
+    maxLifetime: 1h
+    maxIdleTime: 10m
+  - name: account
+    dsn: "michong:michong@tcp(10.0.0.241:3306)/mahjong_account?charset=utf8mb4&parseTime=true"
+    driver: mysql
+    maxOpenConns: 10
+    maxIdleConns: 10
+    maxLifetime: 1h
+    maxIdleTime: 10m
+
+redis:
+  network: tcp
+  address: 10.0.0.32:6379
+  username:
+  password:
+  db: 0
+
+mongo:
+  uri: mongodb://michong:michong@10.0.0.36/?authSource=admin
+  name: game_test
+
+# 单个服务配置
+#
+#
+
+bot:
+  loginServerAddr: 123.56.248.169:30101
+
+  # 用户数量
+  clients: 1
+  # 客户端编号起始ID
+  clientOffset: 1
+
+  # 登陆模式：
+  authenticationMode: "UsernamePassword"
+
+  # code 测试账号登录密码
+  code: 12345678
+
+admin:
+  server:
+    name: admin # service name
+    connectionDependencies: [master]
+    activationDependencies:
+    masterServiceAddr: 10.1.4.38:29001 # master address
+    service:
+      - number: 1
+        listenAddr: 10.1.4.38 # listen address
+        listenPort: 29010 # listen port
+
+  httpServerPort: 18787
+
+  commandTopics:
+    # 管理后台向服务器组推送消息的频道名称
+    clusterMessageTopic: &clusterMessageTopic cluster-topic-61
+    # 客服后台向服务器组推送消息的频道名称
+    customerMessageTopic: &customerMessageTopic customer-topic-61
+
+  kafka:
+    brokers: [mj-kafka.haochang.me:9092]
+    consumer:
+      groupId: adminGroup-wl
+      topics:
+        - *clusterMessageTopic
+        - *customerMessageTopic
+      # 消费者提交间隔，为0时同步提交
+      # 同步性能较低，这里可以重复消费
+      commitInterval: 1s
+    producer:
+      async: true
+
+  security:
+    enable: true
+    signatureDuration: 2s
+    clientID:
+    clientSecret:
+
+  settingsPath: /Users/wl/work/pai/maque/mahjong-data
+
+  # 向正式服务器发送同步订单的地址
+  officialURL: http://10.0.4.38:18787/services/order
+
+  # 定时任务配置: 秒 | 分 | 时 | 日 | 月 | 周
+  timerConfig:
+    dailyUpdate: "0 0 5 * * ?"
+    dailyDelete: "0 0 4 * * ?"
+
+business:
+  server:
+    name: business # service name
+    connectionDependencies: [master, admin]
+    activationDependencies:
+    masterServiceAddr: 10.1.4.38:29001 # master address
+    service:
+      - number: 1
+        listenAddr: 10.1.4.38 # listen address
+        listenPort: 29005 # listen port
+
+  email:
+    host: smtpdm.aliyun.com
+    port: 80
+    username: no-reply@service.mjking.jp
+    password: MIchong123
+    from: no-reply@service.mjking.jp
+
+  kafka:
+    brokers: [mj-kafka.haochang.me:9092]
+    consumer:
+      groupId: payGroupWl
+      topics: [purchase-validation-response-dev1]
+      # 消费者提交间隔，为0时同步提交
+      # 同步性能较低，这里可以重复消费
+      commitInterval: 1s
+    producer:
+      async: true
+
+  zinnor:
+    baseURL: http://10.0.0.181:8281/api
+
+data:
+  server:
+    name: data # service name
+    connectionDependencies: [master, admin]
+    activationDependencies:
+    masterServiceAddr: 10.1.4.38:29001 # master address
+    service:
+      - number: 1 # service number
+        listenAddr: 10.1.4.38 # listen address
+        listenPort: 28001 # listen port
+
+  # 定时任务配置: 秒 | 分 | 时 | 日 | 月 | 周
+  timerConfig:
+    logout: "0 0 5 * * *"
+
+  requireUniqueName: false # 验证角色名字唯一
+
+game:
+  server:
+    name: game # service name
+    connectionDependencies: [master, admin, business, data, world, social, room]
+    activationDependencies: [data, world, social]
+    masterServiceAddr: 10.1.4.38:29001 # master address
+    service:
+      - number: 1 # service number
+        listenAddr: 10.1.4.38 # listen address
+        listenPort: 22001 # listen port
+      - number: 2 # service number
+        listenAddr: 10.1.4.38 # listen address
+        listenPort: 22002 # listen port
+      - number: 3 # service number
+        listenAddr: 10.1.4.38 # listen address
+        listenPort: 22003 # listen port
+
+  gameConfig:
+    enableInitialActors: true # 开启通过配置表获得初始雀士
+    enableConfigureAppleStore: false # 开启配置苹果商店审核
+    skipNewbieGuide: false # 跳过强制新手引导
+
+  # 生涯地址
+  careerUrl: https://client-mahjong.haochang.tv/api/golang/career/v1/career/client/
+  # 牌谱回放地址
+  replayUrl: https://client-mahjong.haochang.tv/api/replay/v1/replay?name=
+
+  # 回放配置
+  replay:
+    shareUrl: "https://share-replay.com" # 分享的回放地址
+    encryptionKey: "$Yrk%*af" # RC4密钥
+
+    # RSA 公钥、私钥
+    publicKey: "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCCQ2/IRqvGKYsmdtIn1ONW/D4kXALkWxz54fjcJxvkwF6FwRVhdP/6PFxD4O41MT0DnvBdpIN/cp3nH3UNZCNR9oWlWIhUu/DF7UKBWhs4PPMlTNgt9smhzYSfY0msybP6XZiv2wUUJdsx6BfrlOe3uUWj0LTdIDKE4EeYd/pZBQIDAQAB"
+    privateKey: "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAIJDb8hGq8YpiyZ20ifU41b8PiRcAuRbHPnh+NwnG+TAXoXBFWF0//o8XEPg7jUxPQOe8F2kg39ynecfdQ1kI1H2haVYiFS78MXtQoFaGzg88yVM2C32yaHNhJ9jSazJs/pdmK/bBRQl2zHoF+uU57e5RaPQtN0gMoTgR5h3+lkFAgMBAAECgYATQxuVdvXRoLUF5A4he7Z+V2BtCfoXgG2hecvN6i6Svet8Rdf+iEmN3D0cgHdZAEXwciFDB5+2SeGVmq45Y7RhI+zLImJ0IH33utuq20Epfxha2CC/cO7u9KrFCwfY5KyktNhOZnxu55y+yKCN4j1nUZYnr8BQY1VGrbTGCL/IBQJBAOXZcnTGRO/mcb/aw8xLL5RDXIQZLuaC++FosqMQEUsyCVyFcZLAlDvc/3ZpA2vIyCELi0Ar2qYLu0zAhD9P6o8CQQCRFXdNl60vwl10Pj9/Y4x+5mosvg6GiBxN20P0y9mPAOoR+zKw6CNZqeswiCQGe0W9AySWIqtdmrpjLIfpKF0rAkEAgICxnNe8cuNDdR+5l93xG9MNRk1OC1HvwHXoaYHyKTgwQ6nXdVR1i4Ji0LClWP1H5jGuCJJ8C5lDfgWj6kGjwQJAEjnZH/VC+3H2XYkIXw95ceOuSOqjVoE41QsLkXAeZ5mczh95ccHn1vbCpfkkVXAdBa6kZPv7/SlX6ueIN2EruwJBAJiSZdEV7c7Wf+u9pb+aWufd5qLzu4MgFSAsEgU998bsjcvGapIyOrgfSLlfgYlI7x3QTTE1uyNXyPO9UQRX07o="
+
+  # 用于测试服务器查询正式服务器的用户信息
+  queryUserUrl: "http://10.0.0.181:8181/api/issuer/v1/user/nickname/get"
+
+login:
+  server:
+    name: login # service name
+    connectionDependencies: [master, admin, business]
+    activationDependencies:
+    masterServiceAddr: 10.1.4.38:29001 # master address
+    service:
+      - number: 1 # service number
+        listenAddr: 10.1.4.38 # listen address
+        listenPort: 30101 # listen port
+
+master:
+  server:
+    name: master # service name
+    connectionDependencies: []
+    activationDependencies: []
+    clusterReadyDependencies: [data, world, game, front]
+    masterServiceAddr: 10.1.4.38 # master address
+    service:
+      - number: 1 # service number
+        listenAddr: 10.1.4.38 # listen address
+        listenPort: 29001 # listen port
+
